@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partials/head.ejs') %>
+
+<style>
+    
+/* Начало */
+* {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: white;
+    background: rgb(131, 58, 180);
+    background: linear-gradient(315deg, rgba(131, 58, 180, 1) 0%, rgba(29, 201, 253, 1) 50%, rgba(69, 78, 252, 1) 100%);
+}
+
+.father {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 3rem;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+}
+
+.menu {
+    padding-top: 20px;
+    height: 10vh;
+    text-align: right;
+}
+
+a {
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 2rem;
+    margin-right: 30px;
+}
+
+/* Конец */
+
+.createPost {
+    height: 52%;
+    width: 85%;
+    position: relative;
+    font-size: 1.5rem;
+    color: black;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+    box-sizing: border-box;
+    padding: 1%;
+}
+
+
+
+.name {
+    float: right;
+}
+
+.title {
+    float: left;
+}
+
+.post {
+    display: block;
+}
+
+#title,
+#name {
+    width: 45%;
+}
+
+#post {
+    padding: 10px;
+    height: 250px;
+    width: 100%;
+    float: left;
+    resize: none;
+    box-sizing: border-box;
+}
+
+#text_post {
+    text-align: left;
+    margin-top: 45px;
+}
+
+#text_name {
+    width: 49px;
+    margin-right: calc(45% - 49px);
+}
+
+input,
+textarea {
+    box-sizing: border-box;
+    font-weight: 200;
+    font-size: 1.2rem;
+    padding-left: 9px;
+    padding-right: 9px;
+    height: 2.3rem;
+    border: 2px black solid;
+    border-radius: 4px;
+    background: white;
+}
+
+
+input:hover,
+textarea:hover {
+    transition: all 0.2s;
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
+.button {
+    margin-right: 1%;
+    margin-bottom: 1%;
+    box-sizing: border-box;
+    right: 0.5%;
+    bottom: 1%;
+    position: absolute;
+}
+
+</style>
+
+<body>
+
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="father" style="align-items: baseline;">
+        <h4 style="display:inline">New Post</h4>
+        <div class="createPost">
+            <form id="post-form" method="post" action="/add-post">
+                <label for="title" id="text_title" class="title">Title</label>
+
+                <label for="name" class="name" id="text_name">Name</label>
+
+                <br>
+
+                <input type="text" id="title" class="title" name="title">
+                <input type="text" id="name" class="name" name="name">
+
+                <label for="post" class="post" id="text_post">Post</label>
+                <textarea id="post" name="text"></textarea>
+                <input type="submit" value="COMPLETE" class="button">
+            </form>
+        </div>
+
+    </div>
+</body>
+
+</html>

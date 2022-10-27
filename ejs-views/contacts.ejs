@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%- include('./partials/head.ejs') %>
+
+<style>
+    /* Начало */
+* {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans';
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: white;
+    background: rgb(131, 58, 180);
+    background: linear-gradient(315deg, rgba(131, 58, 180, 1) 0%, rgba(29, 201, 253, 1) 50%, rgba(69, 78, 252, 1) 100%);
+}
+
+.father {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 3rem;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: center;
+}
+
+.menu {
+    padding-top: 20px;
+    height: 10vh;
+    text-align: right;
+}
+
+a {
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 2rem;
+    margin-right: 30px;
+}
+
+/* Конец */
+</style>
+
+
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <div class="father">
+        <div class="info">
+            <h3>Hello, I'm Ibraim</h3>
+            <% if (contacts.length) { %>
+                <% contacts.forEach( ({ link, name }) => { %>
+                    <a href="<%= link %>"><%= name%></a><br>
+                <% }) %>
+            <% } %> 
+        </div>
+    </div>
+</body>
+
+</html>
