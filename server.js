@@ -1,10 +1,20 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
+const mongooes = require('mongoose');
+const Post = require('./models/post');
+const Contact = require('./models/contact');
 
 const app = express();
 
 const PORT = 3000;
+const db = 'mongodb+srv://Ibraim:Pass123@cluster0.1j6pfke.mongodb.net/node-blog?retryWrites=true&w=majority';
+
+mongooes
+    .connect(db,  {useNewUrlParser: true, useUnifiedTopology: true})
+    .then((res) => console.log('Connected to DB'))
+    .catch((error) => console.log(error));
+
 const createPath = (page) => path.resolve(__dirname, 'ejs-views', `${page}.ejs`)
 
 app.listen(PORT, (error) => {
@@ -24,11 +34,13 @@ app.get('/', (req, res) => {
 
 app.get('/contacts', (req, res) => {
     const title = 'Contacts';
-    const contacts = [
-        {name: 'GitHub', link: 'https://github.com/GanievIbraim'},
-        {name: 'VK', link: 'https://vk.com/ibraimganiev'},
-    ];
-    res.render(createPath('contacts'), {title, contacts});
+    Contact
+        .find()
+        .then((contacts) => res.render(createPath('contacts'), {title, contacts}))
+        .catch((error) => {
+            console.log(error);
+            res.render(createPath('error'), {title: 'Error'});
+        })
 })
 
 app.use('/posts/:id', (req, res) => {
@@ -55,16 +67,14 @@ app.use('/posts', (req, res) => {
 
 app.post('/add-post', (req, res) => {
     const {title, name, text} = req.body;
-
-    const post = {
-        id: new Date(),
-        title,
-        date:  (new Date()).toLocaleDateString(),
-        name,
-        text
-    }
-    //res.send(post);
-    res.render(createPath('post'), {post, title}); 
+    const post = new Post({title, name, text});
+    post
+        .save()
+        .then((result) => res.send(result))
+        .catch((error) => {
+            console.log(error);
+            res.render(createPath('error'), {title: 'Error'});
+        })
 })
 
 app.use('/add-post', (req, res) => {
